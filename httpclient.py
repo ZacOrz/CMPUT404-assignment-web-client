@@ -37,7 +37,7 @@ class HTTPClient(object):
     def get_host_port(self,url):
         '''
         use the urllib.parse.urlparse to paese the URL
-        and get the prot and path in the URL
+        and get the prot and path from the URL
         '''
         parseResult = urllib.parse.urlparse(url)
 
@@ -54,6 +54,9 @@ class HTTPClient(object):
         return hostname, port, path
 
     def get_ip(self, host):
+        '''
+        get the io from the hostname using socket.gethostbyname
+        '''
         try:
             ip = socket.gethostbyname(host)
         except socket.gaierror:
@@ -127,7 +130,7 @@ class HTTPClient(object):
         code = 500
         body = ""
 
-        host, port, path = self.get_host_port_path(url)
+        host, port, path = self.get_host_port(url)
         ip = self.get_ip(host)
         
         payload = f"POST {path} HTTP/1.1\r\nHost: {host}\r\nContent-type: application/x-www-form-urlencoded\r\n"
